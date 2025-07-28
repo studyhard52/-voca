@@ -3,18 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>나만의 단어장</title>
+    <title>빈칸 채우기 단어장</title>
+    <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>나만의 단어장</h1>
-        <div id="word-display">
-            <p id="english-word"></p>
-            <p id="korean-meaning"></p>
+    <div id="mode-selection-screen" class="screen active">
+        <div class="container">
+            <h1>단어 학습 모드 선택</h1>
+            <button class="mode-button" onclick="selectMode('learning')">학습 모드</button>
+            <button class="mode-button" onclick="selectMode('memorization')">암기 모드 (준비 중)</button>
         </div>
-        <button id="show-answer-btn">정답 보기</button>
-        <button id="next-word-btn">다음 단어</button>
+    </div>
+
+    <div id="day-selection-screen" class="screen">
+        <div class="container">
+            <h1>학습할 Day 선택</h1>
+            <div id="day-list">
+                </div>
+            <button class="back-button" onclick="goBackToModeSelection()">뒤로</button>
+        </div>
+    </div>
+
+    <div id="word-learning-screen" class="screen">
+        <div class="container">
+            <h1 id="current-day-title"></h1>
+            <div id="word-display">
+                <p id="english-word"></p>
+                <p id="korean-meaning" class="hidden-meaning"></p>
+            </div>
+            <button id="toggle-meaning-btn">뜻 보기</button>
+            <button id="next-word-btn">다음 단어</button>
+            <button class="back-button" onclick="goBackToDaySelection()">뒤로</button>
+        </div>
     </div>
 
     <script src="script.js"></script>

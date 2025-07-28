@@ -1,5 +1,6 @@
+/* Spoqa Han Sans Neo 폰트 적용 */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Spoqa Han Sans Neo', 'Arial', sans-serif; /* 배달의 민족 글씨체 우선 적용 */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,6 +8,7 @@ body {
     margin: 0;
     background-color: #f4f7f6;
     color: #333;
+    overflow: hidden; /* 화면 전환 시 스크롤바 방지 */
 }
 
 .container {
@@ -17,6 +19,7 @@ body {
     text-align: center;
     width: 90%;
     max-width: 500px;
+    box-sizing: border-box; /* padding이 width에 포함되도록 */
 }
 
 h1 {
@@ -24,29 +27,107 @@ h1 {
     margin-bottom: 25px;
 }
 
+/* 화면 전환을 위한 기본 스타일 */
+.screen {
+    display: none; /* 기본적으로 모든 화면 숨김 */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    position: absolute; /* 겹쳐서 전환되도록 */
+    width: 100%;
+    height: 100%;
+    display: flex; /* 내부 컨텐츠 중앙 정렬을 위해 */
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+}
+
+.screen.active {
+    display: flex; /* 활성화된 화면만 보여줌 */
+    opacity: 1;
+    position: relative; /* 활성화된 화면만 flow에 참여 */
+}
+
+/* 모드 선택 버튼 스타일 */
+.mode-button {
+    background-color: #FF7F50; /* 연주황색 */
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px; /* 둥근 꼭짓점 */
+    cursor: pointer;
+    font-size: 1.5em; /* 글씨 크기 키움 */
+    margin: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: bold; /* 글씨 굵게 */
+    width: 80%; /* 너비 조정 */
+    max-width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.mode-button:hover {
+    background-color: #FF6347; /* 호버 시 약간 더 진한 색 */
+    transform: translateY(-3px); /* 약간 위로 떠오르는 효과 */
+}
+
+/* Day 목록 스타일 */
+#day-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* 반응형 그리드 */
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    max-height: 400px; /* 스크롤 가능하도록 높이 제한 */
+    overflow-y: auto; /* 내용이 넘치면 스크롤 */
+    padding: 10px; /* 스크롤 영역 안쪽 여백 */
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+.day-button {
+    background-color: #4CAF50; /* 녹색 계열 */
+    color: white;
+    border: none;
+    padding: 15px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.day-button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+/* 단어 학습 화면 스타일 (기존 CSS 유지 및 개선) */
 #word-display {
     border: 1px solid #ddd;
     padding: 20px;
     margin-bottom: 25px;
     border-radius: 8px;
-    min-height: 100px; /* 단어가 로드되기 전에도 일정한 높이 유지 */
+    min-height: 120px; /* 단어가 로드되기 전에도 일정한 높이 유지 */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #fdfdfd; /* 단어 표시 영역 배경 */
 }
 
 #english-word {
-    font-size: 2.2em;
+    font-size: 2.5em; /* 더 크게 */
     font-weight: bold;
     color: #34495e;
     margin: 0 0 10px 0;
+    word-break: break-word; /* 긴 단어 줄바꿈 */
 }
 
 #korean-meaning {
-    font-size: 1.2em;
+    font-size: 1.3em; /* 더 크게 */
     color: #7f8c8d;
     margin: 0;
+    word-break: break-word; /* 긴 뜻 줄바꿈 */
 }
 
 .hidden-meaning {
@@ -64,11 +145,13 @@ button {
     cursor: pointer;
     font-size: 1.1em;
     margin: 5px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 button:hover {
     background-color: #27ae60;
+    transform: translateY(-2px);
 }
 
 button#next-word-btn {
@@ -77,4 +160,13 @@ button#next-word-btn {
 
 button#next-word-btn:hover {
     background-color: #2980b9;
+}
+
+.back-button {
+    background-color: #95a5a6; /* 회색 계열 */
+    margin-top: 20px;
+}
+
+.back-button:hover {
+    background-color: #7f8c8d;
 }
